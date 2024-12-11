@@ -1,7 +1,6 @@
 package com.senai.senai.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.senai.senai.utils.DataUtils;
 import jakarta.persistence.*;
@@ -14,7 +13,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -23,7 +21,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Robots implements Serializable {
+public class Motors implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

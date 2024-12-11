@@ -1,11 +1,11 @@
 package com.senai.senai.controller;
 
-import com.senai.senai.models.Robots;
+import com.senai.senai.models.Motors;
 import com.senai.senai.models.dto.RobotsDto;
 import com.senai.senai.models.dto.RobotsFullDto;
 import com.senai.senai.models.dto.UpdateRobotsDto;
-import com.senai.senai.service.RobotsService;
-import com.senai.senai.specifications.RobotsSpecification;
+import com.senai.senai.service.MotorsService;
+import com.senai.senai.specifications.MotorsSpecification;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,15 +20,15 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/robots")
 @CrossOrigin(origins = "*")
-public class RobotsController {
+public class MotorsController {
 
     @Autowired
-    RobotsService robotsService;
+    MotorsService robotsService;
 
     @GetMapping
-    public ResponseEntity<Page<Robots>> getAllRobots(
+    public ResponseEntity<Page<Motors>> getAllRobots(
                                         Pageable pageable,
-                                        RobotsSpecification.RobotsSpec spec ) {
+                                        MotorsSpecification.RobotsSpec spec ) {
         return ResponseEntity.ok(
                 robotsService.getAllRobots(pageable,spec)
         );
@@ -37,16 +37,16 @@ public class RobotsController {
     @GetMapping("/full")
     public ResponseEntity<Page<RobotsFullDto>> getFullRobots(
                                         Pageable pageable,
-                                        RobotsSpecification.RobotsSpec spec ) {
+                                        MotorsSpecification.RobotsSpec spec ) {
         return ResponseEntity.ok(
                 robotsService.getFullRobots(pageable,spec)
         );
     }
 
     @PostMapping
-    public ResponseEntity<List<Robots>> addNewRobot(@RequestBody @Valid List<RobotsDto> robots) {
+    public ResponseEntity<List<Motors>> addNewRobot(@RequestBody @Valid List<RobotsDto> robots) {
 
-        List<Robots> robotsList = robots.stream().map(RobotsDto::mapToRobot).toList();
+        List<Motors> robotsList = robots.stream().map(RobotsDto::mapToRobot).toList();
         //List<Robots> robotsList = robots.stream().map(robotDto -> robotDto.mapToRobot()).toList();
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 robotsService.saveRobots(robotsList));
@@ -54,11 +54,11 @@ public class RobotsController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Robots> updateRobot(
+    public ResponseEntity<Motors> updateRobot(
             @PathVariable UUID id,
             @RequestBody @Valid UpdateRobotsDto robot) {
 
-        Robots convertedRobot = robot.mapToRobot();
+        Motors convertedRobot = robot.mapToRobot();
         convertedRobot.setId(id);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(

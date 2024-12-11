@@ -2,7 +2,7 @@ package com.senai.senai.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.senai.senai.models.Parts;
-import com.senai.senai.models.Robots;
+import com.senai.senai.models.Motors;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,8 +19,8 @@ public class RobotsDto implements Serializable {
     private UUID userId;
 
     @JsonIgnore
-    public Robots mapToRobot(){
-        return Robots.builder()
+    public Motors mapToRobot(){
+        return Motors.builder()
                 .HANDLEBAR(Parts.builder().id(this.HANDLEBAR).build())
                 .REARWHEEL(Parts.builder().id(this.REARWHEEL).build())
                 .WHEEL(Parts.builder().id(this.WHEEL).build())

@@ -1,6 +1,6 @@
 package com.senai.senai.repository;
 
-import com.senai.senai.models.Robots;
+import com.senai.senai.models.Motors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 @Repository
-public interface RobotsRepository extends JpaRepository<Robots, UUID>,
-        JpaSpecificationExecutor<Robots> {
+public interface MotorsRepository extends JpaRepository<Motors, UUID>,
+        JpaSpecificationExecutor<Motors> {
 
-    Page<Robots> findAll(Specification<Robots> spec, Pageable pageable);
+    Page<Motors> findAll(Specification<Motors> spec, Pageable pageable);
 }
 
 

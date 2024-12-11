@@ -1,12 +1,11 @@
 package com.senai.senai.service.impl;
 
-import com.senai.senai.client.UserClient;
 import com.senai.senai.client.UserService;
-import com.senai.senai.models.Robots;
+import com.senai.senai.models.Motors;
 import com.senai.senai.models.dto.RobotsFullDto;
 import com.senai.senai.models.dto.UserDto;
-import com.senai.senai.repository.RobotsRepository;
-import com.senai.senai.service.RobotsService;
+import com.senai.senai.repository.MotorsRepository;
+import com.senai.senai.service.MotorsService;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -24,25 +23,25 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class RobotsServiceImpl implements RobotsService {
+public class RobotsServiceImpl implements MotorsService {
 
     @Autowired
-    private RobotsRepository robotsRepository;
+    private MotorsRepository robotsRepository;
 
     @Autowired
     private UserService userService;
 
     @Override
-    public Page<Robots> getAllRobots(Pageable page, Specification<Robots> spec) {
+    public Page<Motors> getAllRobots(Pageable page, Specification<Motors> spec) {
         return robotsRepository.findAll(spec,page);
     }
 
     @Override
-    public Page<RobotsFullDto> getFullRobots(Pageable page, Specification<Robots> spec) {
-        Page<Robots> robotsFound = getAllRobots(page, spec);
+    public Page<RobotsFullDto> getFullRobots(Pageable page, Specification<Motors> spec) {
+        Page<Motors> robotsFound = getAllRobots(page, spec);
         List<RobotsFullDto> robotsDto = new ArrayList<>();
         List<UserDto> userDtos = userService.getUsersByIds(
-                robotsFound.getContent().stream().map(Robots::getUserId).toList()
+                robotsFound.getContent().stream().map(Motors::getUserId).toList()
         );
 
         robotsFound.getContent().stream().forEach(robot->{
@@ -67,7 +66,7 @@ public class RobotsServiceImpl implements RobotsService {
     }
 
     @Override
-    public List<Robots> saveRobots(List<Robots> robots) {
+    public List<Motors> saveRobots(List<Motors> robots) {
         List<UUID> robotIds = new ArrayList<>();
         robots.stream().forEach(robot -> {
             if( userService.checkIfUserExists(robot.getUserId()) ){
@@ -84,8 +83,8 @@ public class RobotsServiceImpl implements RobotsService {
     }
 
     @Override
-    public Robots updateRobot(Robots robot) {
-        Optional<Robots> optionalRobot = robotsRepository.findById(robot.getId());
+    public Motors updateRobot(Motors robot) {
+        Optional<Motors> optionalRobot = robotsRepository.findById(robot.getId());
 
         if(optionalRobot.isPresent()) {
             BeanUtils.copyProperties(robot,optionalRobot.get(),
@@ -98,7 +97,7 @@ public class RobotsServiceImpl implements RobotsService {
     @Transactional(rollbackOn = Exception.class)
     @Override
     public void deleteRobot(UUID id) {
-        Optional<Robots> optionalRobot = robotsRepository.findById(id);
+        Optional<Motors> optionalRobot = robotsRepository.findById(id);
         if(optionalRobot.isPresent()){
             robotsRepository.delete(optionalRobot.get());
         }

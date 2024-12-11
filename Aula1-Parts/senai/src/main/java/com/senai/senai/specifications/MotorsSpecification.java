@@ -1,13 +1,13 @@
 package com.senai.senai.specifications;
 
-import com.senai.senai.models.Robots;
+import com.senai.senai.models.Motors;
 import net.kaczmarzyk.spring.data.jpa.domain.EqualIgnoreCase;
 import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.data.jpa.domain.Specification;
 
-public class RobotsSpecification {
+public class MotorsSpecification {
 
     @And({
             @Spec(path = "HANDLEBAR.title", params = "HANDLEBARTitle", spec = LikeIgnoreCase.class),
@@ -29,5 +29,5 @@ public class RobotsSpecification {
             @Spec(path = "ENGINE.id", params = "ENGINEId", spec = EqualIgnoreCase.class),
 
     })
-    public interface RobotsSpec extends Specification<Robots> {}
+    public interface RobotsSpec extends Specification<Motors> {}
 }
