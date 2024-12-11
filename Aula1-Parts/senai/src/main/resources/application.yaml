@@ -1,0 +1,31 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true #opcional
+  application:
+    name: parts-microservice
+  datasource:
+    url: jdbc:mysql://localhost:3306/senairobots?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:8089/eureka/'
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    hostname: localhost
+
+app:
+  users-microservice:
+    url: 'http://localhost:8081/api/user'
